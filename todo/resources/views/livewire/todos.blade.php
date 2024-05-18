@@ -1,9 +1,12 @@
 <?php
 
-use function Livewire\Volt\{state};
+use function Livewire\Volt\{state, with};
 
 state(['task']);
 
+with([
+    'todos' => fn() => auth()->user()->todos,
+]);
 
 $add = function () {
 
@@ -21,6 +24,14 @@ $add = function () {
         <input type="text" name="" wire:model="task">
         <button type="submit">Add</button>
     </form>
-    
+
+    <div class="mt-2">
+        <ul>
+            @foreach($todos as $todo)
+                <li>{{ $todo->task }}</li>
+            @endforeach
+        </ul>
+    </div>
+
 </div>
 
